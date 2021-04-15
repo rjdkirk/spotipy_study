@@ -3,8 +3,8 @@ import pandas as pd
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
-client_id = 'bc14dbad3a614e6bac21a603e03e343c'
-client_secret = 'd6e20186fd5448f384012f42756b7f5a'
+client_id = 'xxxx'
+client_secret = 'xxxx'
 client_credentials_manager = SpotifyClientCredentials(client_id=client_id, client_secret=client_secret)
 sp = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
@@ -59,7 +59,7 @@ def analyze_playlist_dict(playlist_dict):
     # Loop through every playlist in the dict and analyze it
     for i, (key, val) in enumerate(playlist_dict.items()):
         playlist_df = analyze_playlist(*val)
-        # Add a playlist column so that we can see which playlist a track belongs too
+        # Add a playlist column so that we can see which playlist a track belongs to
         playlist_df["playlist"] = key
         # Create or concat df
         if i == 0:
@@ -69,6 +69,7 @@ def analyze_playlist_dict(playlist_dict):
 
     return playlist_dict_df
 
+# Dictionaries of playlist manually collected from search results, 'name: ('creator', 'playlist_id')'
 sleep_playlists_dict = {
     'Sleep' : ('Spotify', '37i9dQZF1DWZd79rJ6a7lp'),
     'Deep Sleep' : ('Spotify', '37i9dQZF1DWYcDQ1hSjOpY'),
@@ -83,9 +84,6 @@ sleep_playlists_dict = {
     'Sleep Tight' : ('Spotify', '37i9dQZF1DWSUFOo47GEsI'),
     'Classical Sleep' : ('Spotify', '37i9dQZF1DX8Sz1gsYZdwj'),
     'Sleep Sounds' : ('Filtr', '6k6C04ObdWs3RjsabtRUQa'),
-#    'Sleeping Songs' : ('Sleepy Sounds', '6EgSj5fXmdfDPdpnEEv4EU'),
-        # and this one has turned into something else entirely. think i've run out of extra sleep
-        # playlists which means I will have to search for a new one to add.
     'Sleep Lullabies' : ('gkyla', '30oR4iBzmouadY8aawVODx'),
     'Sleep: Into the Ocean' : ('Spotify', '37i9dQZF1DXabJG3i5q2yk'),
     'sleep songs' : ('mallen2505', '7lyhW4iOuUumlDubpwBXsS'),
@@ -93,7 +91,6 @@ sleep_playlists_dict = {
     'Lo-Fi Beats' : ('Spotify', '37i9dQZF1DWWQRwui0ExPn'),
     'SLEEPY TIME' : ('macyleeeeedavis22', '68JXTKfqFZEWO1DQRdVndh'),
     'Sleeping Songs' : ('megan21', '5OajoGDWc6pK101SCqH1R7'),
-        # two Sleeping Songs playlists, didn't like that, numbered them now...
     'Sleepy Music' : ('Sleepy Times', '1u9NkEi4uwvlKu1Nlhx5T7'),
     'Baby Sleep Aid: White Noise' : ('Spotify', '37i9dQZF1DXby8tlLbzqaH'),
     'Sleeping Songs 2020' : ('Johansson Jimmy', '4DggdFdvUbwW3X7E6Rtw9Y'),
@@ -122,9 +119,6 @@ relaxing_playlists_dict = {
     'Hanging Out and Relaxing' : ('Spotify', '37i9dQZF1DXci7j0DJQgGp'),
     'Relax in the Bath' : ('Matt Johnson', '5sMfgeII8qGOwcgxfqqDaM'),
     'Relaxing Songs' : ('lyssastreiner', '4D3hxAbOjVu5jaC5Bnlmky'),
-#    'Relax en casa' : ('Spotify', '37i9dQZF1DXcjpPPxCzYRE'),
-        # this one above isn't working for some reason? have swapped it out and added another
-        # playlist at the end of the list.
     'Soothing Relaxation' : ('Soothing Relaxation', '4AyG5SW1hu3toT9kd9PSXR'),
     'Relaxing Reading' : ('Spotify', '37i9dQZF1DX3DZBe6wPMXo'),
     'Relaxing acoustic' : ('samkeane-gb', '4rdl06oulIdgDNjJts2rmp'),
@@ -139,8 +133,6 @@ relaxing_playlists_dict = {
     'Relaxing & Chill House 2020 The Good Life Radio' : ('Sensual Musique', '75XrS5HXOmVYMgdXlaQTwO'),
     'Relax Tayo' : ('Spotify', '37i9dQZF1DWU96w4Gh7vJe'),
     'Meditação e Relaxamento' : ('Spotify', '37i9dQZF1DXaKgOqDv3HpW'),
-#    'Relaxing Music' : ('akalones', '6j8jy0z4ODGxBAySLI6Sty')
-        # and this one has since dropped under 50 tracks! replacing with one below.
     'Mindfulness - Focus/Relax' : ('tommyberre','2ozb9cgwMcl2SDWK4SLRp8')
 }
 
@@ -164,15 +156,9 @@ energising_playlists_dict = {
     'Dance Workout' : ('Filtr UK', '7wBpRbIoatquCDVcxybHEk'),
     'Dance Hits 2020' : ('Enforce The Sound', '4soPjt4Q9nPeAmVDlLAQtN'),
     'Dancehall Official' : ('Spotify', '37i9dQZF1DXan38dNVDdl4'),
-#    'The Dance List' : ('Spotify', '37i9dQZF1DX7364T8tu1TH'),
-        # this playlist has changed, it now has only 49 tracks! replacement below.
     'Dance Pop' : ('Spotify','37i9dQZF1DWZQaaqNMbbXa'),
     'Workout Music 2020' : ('BLACK DOT', '190wZ2oVo7MTrBvNlPiub2'),
     'Workout' : ('Spotify', '37i9dQZF1DX70RN3TfWWJh'),
-#    'Rap Workout' : ('Spotify', '37i9dQZF1DX76t638V6CA8'),
-        # This one not working for the timbre extraction, weirdly? have replaced with the one at the end,
-        # also a workout playlist, this one had the most likes of the extras remaining. may need to
-        # change the other one as well so they're consistent.
     'The Rock Workout' : ('Spotify', '37i9dQZF1DX6hvx9KDaW4s'),
     'Workout Beats' : ('Spotify', '37i9dQZF1DWUSyphfcc6aL'),
     'Workout Motivation 2020' : ('Jay Cutler', '2237sMNMlXS4wWLgdQ1UuV'),
@@ -183,10 +169,12 @@ energising_playlists_dict = {
     'Adrenaline Workout' : ('Spotify', '37i9dQZF1DXe6bgV3TmZOL')
 }
 
+# Run main function on each playlist dictionary
 sleep_playlists_df = analyze_playlist_dict(sleep_playlists_dict)
 relaxing_playlists_df = analyze_playlist_dict(relaxing_playlists_dict)
 energising_playlists_df = analyze_playlist_dict(energising_playlists_dict)
 
+# Export results to .csv files
 sleep_playlists_df.to_csv('sleep_playlists.csv')
 relaxing_playlists_df.to_csv('relaxing_playlists.csv')
 energising_playlists_df.to_csv('energising_playlists.csv')
