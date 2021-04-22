@@ -58,5 +58,7 @@ misclassrate = sum(isnotcorrect)/numel(isnotcorrect);
 featsTest.Playlist = categorical(featsTest.Playlist);
 true = featsTest.Playlist;
     % Leaving here for now
-% confusionchart(true,predictions);
+% cm = confusionchart(true,predictions);
+% cm.RowSummary = 'row-normalized';
+% cm.ColumnSummary = 'column-normalized';
 end
